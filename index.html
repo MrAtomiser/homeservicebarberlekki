@@ -855,7 +855,8 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 860px) {
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .hero-visual { aspect-ratio: 16/10; order: -1; }
+    .hero-visual { aspect-ratio: 4/3; order: -1; min-height: unset; }
+    .hero-client-photo { object-position: center 20%; }
     .steps { grid-template-columns: 1fr; }
     .step { border-right: none; border-bottom: 1px solid var(--line); }
     .step:last-child { border-bottom: none; }
