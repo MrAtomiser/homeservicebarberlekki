@@ -1570,6 +1570,37 @@
 </a>
 
 <script>
+// WhatsApp click tracking — fires a GA4 event for every WhatsApp link click
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href*="wa.me"]');
+  if (!link) return;
+
+  // Identify which button was clicked based on surrounding context
+  const text = (link.textContent || '').trim();
+  const href = link.href || '';
+
+  // Determine label from button text or parent context
+  let label = text || 'unknown';
+  if (href.includes('broadcast')) label = 'Join Broadcast';
+  if (href.includes('Lekki') && !href.includes('home+cut')) label = 'Book — Lekki Area';
+  if (href.includes('Ikoyi')) label = 'Book — Ikoyi Area';
+  if (href.includes('Victoria+Island')) label = 'Book — Victoria Island Area';
+  if (href.includes('Ajah')) label = 'Book — Ajah Area';
+  if (label === '→' || label === '') label = 'Book Button';
+
+  // Determine which number (primary vs backup)
+  const number = href.includes('2347072548581') ? 'primary' : 'backup';
+
+  gtag('event', 'whatsapp_click', {
+    event_category: 'engagement',
+    event_label: label,
+    whatsapp_number: number,
+    page_location: window.location.href
+  });
+});
+</script>
+
+<script>
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
